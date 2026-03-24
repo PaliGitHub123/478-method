@@ -10,7 +10,7 @@ let playState = false;
 const N = 19;
 const cx = 180, cy = 180, r = 155;
 const svg = document.getElementById('polygon-svg');
-const COUNTERCOLOR = '#246100';
+const COUNTERCOLOR = '#48a313';
 
 
 const points = [];
