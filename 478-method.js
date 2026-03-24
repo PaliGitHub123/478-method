@@ -10,6 +10,7 @@ let playState = false;
 const N = 19;
 const cx = 180, cy = 180, r = 155;
 const svg = document.getElementById('polygon-svg');
+const COUNTERCOLOR = '#246100';
 
 
 const points = [];
@@ -56,7 +57,7 @@ mainDiv.addEventListener("click", function(e){
 });
 
 function animateCircle(n) {
-    svg.children[n].style.stroke = '#8b1a1a';
+    svg.children[n].style.stroke = COUNTERCOLOR;
 }
 
 let counter = 0;
