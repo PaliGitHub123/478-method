@@ -50,7 +50,9 @@ mainDiv.addEventListener("click", function(e){
     if(e.target.classList.contains("play-stop")){
         if(!playState){
             playState = true;
+            playButton.innerHTML = "Stop";
         }else{
+            playButton.innerHTML = "Start";
             playState = false;
         }
     }
@@ -96,7 +98,7 @@ function setInstructions (){
 instructions.innerHTML = "Press Start";
 
 setInterval(function(){
-    if(playState == true){
+    if(playState){
         setInstructions();
        timer.innerHTML = "0" + displayCounter + "s";
     } 

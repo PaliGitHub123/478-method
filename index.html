@@ -3,17 +3,191 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>4-7-8 Breathing</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <style>
+            :root {
+                --bg:          #0e0e10;
+                --line:        #252530;
+                --line-active: #7eb87e;
+                --dot:         #32323e;
+                --text-primary: #e4e4dc;
+                --text-muted:   #5a5a66;
+                --accent:      #7eb87e;
+                --btn-border:  #2a2a34;
+            }
+
+            *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+            html, body { height: 100%; width: 100%; }
+
+            body {
+                background: var(--bg);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                font-family: 'DM Mono', monospace;
+                color: var(--text-primary);
+                overflow: hidden;
+            }
+
+            #main-div {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 28px;
+            }
+
+            .app-label {
+                font-family: 'Cormorant Garamond', serif;
+                font-weight: 300;
+                font-size: 0.7rem;
+                letter-spacing: 0.35em;
+                text-transform: uppercase;
+                color: var(--text-muted);
+            }
+
+            .polygon-wrapper {
+                position: relative;
+                width: min(340px, 82vw);
+                height: min(340px, 82vw);
+            }
+
+            .polygon-wrapper svg {
+                width: 100%;
+                height: 100%;
+                overflow: visible;
+            }
+
+            .polygon-line {
+                stroke: var(--line);
+                stroke-width: 1.5;
+                stroke-linecap: round;
+                transition: stroke 0.35s ease, stroke-width 0.35s ease;
+            }
+
+            .polygon-line-active {
+                stroke: var(--line-active) !important;
+                stroke-width: 2.5;
+                filter: drop-shadow(0 0 5px rgba(126,184,126,0.5));
+            }
+
+            .polygon-dot {
+                fill: var(--dot);
+            }
+
+            .text-content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                width: 160px;
+                pointer-events: none;
+            }
+
+            #timer {
+                font-family: 'DM Mono', monospace;
+                font-weight: 300;
+                font-size: 2.8rem;
+                letter-spacing: -0.03em;
+                color: var(--text-primary);
+                line-height: 1;
+                margin-bottom: 12px;
+            }
+
+            #instructions {
+                font-family: 'Cormorant Garamond', serif;
+                font-weight: 300;
+                font-size: 1.1rem;
+                letter-spacing: 0.06em;
+                color: var(--text-muted);
+                line-height: 1.5;
+            }
+
+            .phase-dots {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+
+            .phase-dot {
+                width: 4px;
+                height: 4px;
+                border-radius: 50%;
+                background: var(--btn-border);
+                transition: background 0.3s, transform 0.3s;
+            }
+
+            .phase-dot.active {
+                background: var(--accent);
+                transform: scale(1.6);
+            }
+
+            #play-stop {
+                font-family: 'DM Mono', monospace;
+                font-size: 0.68rem;
+                font-weight: 400;
+                letter-spacing: 0.22em;
+                text-transform: uppercase;
+                cursor: pointer;
+                border: 1px solid var(--btn-border);
+                background: transparent;
+                border-radius: 2px;
+                color: var(--text-muted);
+                padding: 12px 40px;
+                transition: border-color 0.2s, color 0.2s, background 0.2s;
+            }
+
+            #play-stop:hover,
+            #play-stop.running {
+                border-color: var(--accent);
+                color: var(--accent);
+                background: rgba(126,184,126,0.04);
+            }
+
+            /* landscape on mobile */
+            @media (max-height: 480px) and (orientation: landscape) {
+                #main-div {
+                    flex-direction: row;
+                    gap: 32px;
+                }
+                .polygon-wrapper {
+                    width: min(220px, 44vw);
+                    height: min(220px, 44vw);
+                    flex-shrink: 0;
+                }
+                .app-label { display: none; }
+                .side-col {
+                    display: flex !important;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 20px;
+                }
+                #timer { font-size: 2.2rem; }
+            }
+        </style>
     </head>
     <body>
         <div id="main-div">
-            <p id="timer"></p>
-            <p id="instructions"></p>
-            <button id="play-stop"></button>
+
+            <div class="polygon-wrapper">
+                <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" id="polygon-svg"></svg>
+                <div class="text-content">
+                    <p id="timer">—</p>
+                    <p id="instructions"></p>
+                </div>
+            </div>
+
+            <div class="side-col" style="display:contents">
+                <button id="play-stop">Start</button>
+            </div>
         </div>
-        <script src="" async defer></script>
+
+        <script src="478-method.js" async defer></script>
     </body>
 </html>
